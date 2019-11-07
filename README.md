@@ -1,4 +1,5 @@
-# wechat-ffrq
+# vue-webapp-basic
+## 已完成 vw适配 、 添加 vant 、 添加sass全局配置 、 添加缓存系统 、添加全局工具函数
 
 ## Project setup
 ```
@@ -13,16 +14,6 @@ npm run dev
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration

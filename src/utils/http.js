@@ -1,0 +1,57 @@
+import axios from 'axios'
+import { config } from './config'
+
+// 创建了一个实例
+var http = axios.create({
+  baseURL: config.base_url
+})
+
+// 请求发前拦截，header中添加token
+http.interceptors.request.use(res => {
+  res.headers.common['X-Token'] = localStorage.get('token') || ''
+  return res
+})
+
+// 添加响应拦截器
+http.interceptors.response.use(function(response) {
+  // 对响应数据做点什么
+  const res = response.data
+  return res
+}, function(error) {
+  // 对响应错误做点什么
+  return Promise.reject(error)
+})
+
+class HTTP {
+  logout() {
+
+  }
+
+  get(url, params, config = {}) {
+    const that = this
+    const result = http.get(url, { params }, config)
+    result.then(res => {
+      if (res.data.errorCode === '401') {
+        setTimeout(function() {
+          that.logout()
+        }, 1000)
+      }
+    })
+    return result
+  }
+
+  post(url, params, config = {}) {
+    const that = this
+    const result = http.post(url, params, config)
+    result.then(res => {
+      if (res.data.errorCode === '401') {
+        setTimeout(function() {
+          that.logout()
+        }, 1000)
+      }
+    })
+    return result
+  }
+}
+
+export { HTTP }

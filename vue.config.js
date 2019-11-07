@@ -15,7 +15,7 @@ module.exports = {
   // 第三方插件配置
   pluginOptions: {
     publicPath: '',
-    outputDir: 'wechat-ffrq',
+    outputDir: 'your-project',
     configureWebpack: config => {
       const commonConfig = {
         resolve: {

@@ -8,29 +8,42 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
+        // sass loder 7.x 则为data
         prependData: `@import "@/assets/styles/public.scss";`
       }
     }
   },
-  // 第三方插件配置
-  pluginOptions: {
-    publicPath: '',
-    outputDir: 'your-project',
-    configureWebpack: config => {
-      const commonConfig = {
-        resolve: {
-          alias: {
-            '@': resolve('src')
-          }
+  publicPath: '',
+  outputDir: 'your-project',
+  configureWebpack: config => {
+    const commonConfig = {
+      resolve: {
+        alias: {
+          '@': resolve('src')
         }
       }
-      if (process.env.NODE_ENV === 'production') {
-        return {
-          ...commonConfig
-        }
-      } else {
-        return {
-          ...commonConfig
+    }
+    if (process.env.NODE_ENV === 'production') {
+      return {
+        ...commonConfig
+      }
+    } else {
+      return {
+        ...commonConfig
+      }
+    }
+  },
+  devServer: {
+    disableHostCheck: true,
+    port: 8072,
+    open: true, // 配置自动启动浏览器
+    proxy: {
+      '/api': {
+        target: 'http://192.168.137.54:8199/sso/', // 目标接口地址
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/api': ''
         }
       }
     }

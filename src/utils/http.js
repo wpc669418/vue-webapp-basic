@@ -8,7 +8,7 @@ var http = axios.create({
 
 // 请求发前拦截，header中添加token
 http.interceptors.request.use(res => {
-  res.headers.common['X-Token'] = localStorage.get('token') || ''
+  res.headers.common['X-Token'] = localStorage.getItem('token') || ''
   return res
 })
 
@@ -30,12 +30,15 @@ class HTTP {
   get(url, params, config = {}) {
     const that = this
     const result = http.get(url, { params }, config)
+
     result.then(res => {
-      if (res.data.errorCode === '401') {
+      if (res.code === '401') {
         setTimeout(function() {
           that.logout()
         }, 1000)
       }
+    }).catch(reason => {
+      console.log(reason)
     })
     return result
   }
@@ -44,11 +47,13 @@ class HTTP {
     const that = this
     const result = http.post(url, params, config)
     result.then(res => {
-      if (res.data.errorCode === '401') {
+      if (res.code === '401') {
         setTimeout(function() {
           that.logout()
         }, 1000)
       }
+    }).catch(reason => {
+      console.log(reason)
     })
     return result
   }

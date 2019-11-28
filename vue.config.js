@@ -13,7 +13,7 @@ module.exports = {
       }
     }
   },
-  publicPath: '',
+  // publicPath: '',
   // outputDir: 'your-project',
   configureWebpack: config => {
     const commonConfig = {

@@ -14,7 +14,7 @@ module.exports = {
     }
   },
   publicPath: '',
-  outputDir: 'your-project',
+  // outputDir: 'your-project',
   configureWebpack: config => {
     const commonConfig = {
       resolve: {
